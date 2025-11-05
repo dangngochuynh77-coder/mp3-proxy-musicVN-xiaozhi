@@ -47,7 +47,7 @@ app.get('/stream_pcm', async (req, res) => {
         }
 
         // Lấy tối đa 3 bài đầu tiên
-        const topSongs = songs.slice(0, 3);
+        const topSongs = songs.slice(0, 1);
         console.log(`✅ Found ${topSongs.length} songs`);
 
         // ===== PRE-DOWNLOAD AUDIO CHO CẢ 3 BÀI =====

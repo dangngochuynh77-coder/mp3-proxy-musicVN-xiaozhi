@@ -10,9 +10,6 @@ services:
     dockerfilePath: ./mp3-api/Dockerfile
     # Render sẽ tự động clone submodules nếu bạn bật
     autoDeploy: true
-    healthCheck:
-      path: /health # Đường dẫn kiểm tra "sức khỏe"
-
   # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy)
   - type: web
     name: xiaozhi-adapter

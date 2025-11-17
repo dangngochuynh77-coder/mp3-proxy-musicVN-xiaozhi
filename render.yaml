@@ -7,9 +7,10 @@ services:
     # Báo Render lấy code từ submodule 'mp3-api'
     # và build Dockerfile bên trong đó
     dockerContext: ./mp3-api
-    dockerfilePath: ./mp3-api/Dockerfile
+    dockerfilePath: Dockerfile # <-- ĐÃ SỬA
     # Render sẽ tự động clone submodules nếu bạn bật
     autoDeploy: true
+
   # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy)
   - type: web
     name: xiaozhi-adapter
@@ -17,7 +18,7 @@ services:
     plan: free # Sử dụng gói miễn phí
     # Báo Render lấy code từ submodule 'adapter'
     dockerContext: ./adapter
-    dockerfilePath: ./adapter/Dockerfile
+    dockerfilePath: Dockerfile # <-- ĐÃ SỬA
     autoDeploy: true
     envVars:
       - key: PORT

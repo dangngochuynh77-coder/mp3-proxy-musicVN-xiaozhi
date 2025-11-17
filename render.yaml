@@ -1,18 +1,17 @@
 services:
-  # Dịch vụ 1: API Nhạc (Backend) - Dịch vụ Riêng tư
-  - type: pvt  # <-- THAY ĐỔI QUAN TRỌNG: 'web' thành 'pvt'
+  # Dịch vụ 1: API Nhạc (Backend) - Phải là 'web'
+  - type: web  # <-- THAY ĐỔI 1: 'pvt' thành 'web'
     name: mp3-api
     env: node
     plan: free 
     autoDeploy: true
     rootDir: ./mp3-api
     buildCommand: npm install
-    # App sẽ tự chạy trên port 5555 (vì code là || 5555)
-    startCommand: npm start 
-    # Không cần 'envVars' cho PORT nữa
+    startCommand: npm start
+    # <-- THAY ĐỔI 2: Xóa khối 'envVars' ép port 5555
 
-  # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy) - Dịch vụ Web
-  - type: web # <-- Giữ nguyên là 'web' để có link public
+  # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy)
+  - type: web
     name: xiaozhi-adapter
     env: node
     plan: free 
@@ -21,8 +20,6 @@ services:
     buildCommand: npm install
     startCommand: node xiaozhi-adapter.js
     envVars:
-      - key: PORT
-        value: 5005 # Cổng mà adapter sẽ lắng nghe
+      # KHÔNG SỬA GÌ Ở ĐÂY (chúng ta sẽ sửa nó trên web)
       - key: MP3_API_URL
-        # Link này bây giờ sẽ hoạt động hoàn hảo
-        value: http://mp3-api:5555
+        value: http://temp-url

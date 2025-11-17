@@ -9,6 +9,7 @@ services:
     working_dir: /app
     ports:
       - "5555:5555"  # Port cho mp3-api (có thể truy cập trực tiếp để test)
+    restart: unless-stopped
     environment:
       - PORT=5555
       - NODE_ENV=production
@@ -32,6 +33,7 @@ services:
     working_dir: /app
     ports:
       - "5005:5005"  # Port cho Xiaozhi (ESP32 sẽ connect vào đây)
+    restart: unless-stopped
     environment:
       - PORT=5005
       - NODE_ENV=production

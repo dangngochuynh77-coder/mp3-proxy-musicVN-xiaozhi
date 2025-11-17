@@ -1,31 +1,27 @@
 services:
-  # Dịch vụ 1: API Nhạc (Backend)
+  # Dịch vụ 1: API Nhạc (Backend) - Build bằng Node.js
   - type: web
     name: mp3-api
-    env: docker
-    plan: free # Sử dụng gói miễn phí
-    # Báo Render lấy code từ submodule 'mp3-api'
-    # và build Dockerfile bên trong đó
-    dockerContext: ./mp3-api
-    dockerfilePath: Dockerfile # <-- ĐÃ SỬA
-    # Render sẽ tự động clone submodules nếu bạn bật
+    env: node          # <-- THAY ĐỔI 1: Đổi 'docker' thành 'node'
+    plan: free 
     autoDeploy: true
+    # Báo Render lấy code từ thư mục 'mp3-api'
+    rootDir: ./mp3-api 
+    buildCommand: npm install  # <-- THAY ĐỔI 2: Thêm lệnh build
+    startCommand: npm start    # <-- THAY ĐỔI 3: Thêm lệnh khởi động
 
-  # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy)
+  # Dịch vụ 2: Adapter cho Xiaozhi (Frontend/Proxy) - Build bằng Docker
   - type: web
     name: xiaozhi-adapter
     env: docker
-    plan: free # Sử dụng gói miễn phí
-    # Báo Render lấy code từ submodule 'adapter'
+    plan: free 
     dockerContext: ./adapter
-    dockerfilePath: Dockerfile # <-- ĐÃ SỬA
+    dockerfilePath: Dockerfile # Giữ nguyên như lần sửa trước
     autoDeploy: true
     envVars:
       - key: PORT
-        value: 5005 # Cổng mà adapter sẽ lắng nghe
+        value: 5005
       - key: MP3_API_URL
-        # Đây là phần quan trọng:
-        # Render tự động cho phép 'xiaozhi-adapter'
-        # gọi 'mp3-api' qua tên dịch vụ trên mạng nội bộ.
-        # Port 5555 là port NỘI BỘ của mp3-api.
+        # Link này vẫn đúng, Render sẽ tự link 2 dịch vụ
+        # Service 'mp3-api' sẽ chạy trên port 5555 nội bộ
         value: http://mp3-api:5555

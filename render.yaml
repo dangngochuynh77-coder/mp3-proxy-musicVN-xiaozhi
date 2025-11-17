@@ -19,8 +19,6 @@ services:
     dockerContext: ./adapter
     dockerfilePath: ./adapter/Dockerfile
     autoDeploy: true
-    healthCheck:
-      path: /health
     envVars:
       - key: PORT
         value: 5005 # Cổng mà adapter sẽ lắng nghe
